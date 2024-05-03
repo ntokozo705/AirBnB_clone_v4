@@ -15,6 +15,11 @@ def teardown_appcontext(error):
     '''Closes the connection to the database.'''
     storage.close()
 
+@app.errorhandler(404)
+def error_not_found(error):
+    '''Method to define the status code.'''
+    return make_response(jsonify({"error": "Not found"}), 404)
+
 
 if __name__ == "__main__":
     app.run(host=getenv('HBNB_API_HOST', '0.0.0.0'),
